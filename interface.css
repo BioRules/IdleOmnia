@@ -1,0 +1,317 @@
+/* Material Tabs */
+/* Set tab basics */
+ul.itemsTab {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Float list items side by side */
+ul.itemsTab li {float: left;}
+
+/* Style links inside list items */
+ul.itemsTab li a {
+	display: inline-block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+ul.upgradesTab {
+	padding-left: 5px;
+}
+
+ul.upgradesTab li {
+	display: table-row;
+}
+
+/* Change link background color on hover */
+ul.itemsTab li a:hover {background-color: #ddd;}
+
+/* Create active/current tablink class */
+ul.itemsTab li a:focus, .active {background-color: #ccc;}
+
+/* Change to red if losing material */
+ul.itemsTab li .losing {background-color: #b00}
+
+/* Hide list items */
+ul.itemsTab li .hide {display: none}
+
+/* Tab Content */
+/* Set tab style */
+.tabcontent {
+	display: none;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+	overflow: auto;
+}
+
+/* Set style of material box */
+.sidebyside.materials {
+	display: inline-block;
+	float: left;
+	width: 35%;
+	height: 550px;
+	border: 2px solid #000;
+	border-right: none;
+	max-height: 550px;
+	overflow: auto;
+}
+
+/* Set style of generator box */
+.sidebyside.generators {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 45%;
+	height: 550px;
+	border: 2px solid #000;
+	max-height: 550px;
+	overflow: auto;
+}
+
+/* Set style of upgrades box */
+.sidebyside.upgrades {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 19.2%;
+	height: 550px;
+	border: 2px solid #000;
+	border-left: none;
+	max-height: 550px;
+	overflow: auto;
+}
+
+/* Set style of information box */
+.informationMat {
+	display: inline-block;
+	float: left;
+	width: 35%;
+	height: 150px;
+	border: 2px solid #000;
+	border-top: none;
+	border-right: none;
+	overflow: auto;
+}
+
+.informationUsed {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 45%;
+	height: 150px;
+	border: 2px solid #000;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	overflow: auto;
+}
+
+.informationUp {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 19.5%;
+	height: 150px;
+	border: 2px solid #000;
+	border-top: none;
+	border-left: none;
+	overflow: auto;
+}
+
+.infodetails {
+	position: relative;
+	left: 5px;
+}
+
+/* Buttons */
+/* Set style of material collect buttons */
+.collectButton {
+	display: inline-block;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 120px;
+	text-align: center;
+	background-color: #EEE;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+/* Set style of generator buttons */
+.buyButton {
+	display: inline-block;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 225px;
+	text-align: center;
+	background-color: #EEE;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+.buyMulti{
+	display: inline-block;
+}
+
+.sellMulti{
+	display: none;
+}
+
+.sellButton {
+	display: none;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 180px;
+	text-align: center;
+	background-color: #EEE;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+/* Set style of menu buttons */
+.menuButton {
+	display: inline-block;
+	text-align: center;
+}
+
+/* Set style of upgrade buttons */
+.upgrade {
+	display: none;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 250px;
+	text-align: center;
+	background-color: #EEE;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none; 
+	user-select:none;
+	-o-user-select:none;
+}
+
+.bought {
+	display: none;
+}
+
+/* Set style of disabled buttons*/
+.disabledC{
+	display: inline-block;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 120px;
+	text-align: center;
+	background-color: #BBB;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+}
+
+.disabledB{
+	display: inline-block;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 225px;
+	text-align: center;
+	background-color: #BBB;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+}
+
+.disabledU{
+	display: none;
+	position: relative;
+	left: 5px;
+	margin-right: 5px;
+	width: 250px;
+	text-align: center;
+	background-color: #BBB;
+	color: #000;
+	padding: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+}
+
+/* Tooltips */
+/* Set tooltip basics */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+/* Set tooltip text style */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: white;
+	text-align: center;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	width: 120px;
+	top: 100%;
+	left: 50%;
+	margin-left: -60px;
+	
+	position: absolute;
+	z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+footer{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}

@@ -1,0 +1,402 @@
+<html>
+	 <meta charset="UTF-8"> 
+	<head>
+		<title>Idle Omnia</title>
+		<link rel="stylesheet" type="text/css" href="interface.css" />
+		<script src="biginteger.js"></script>
+		<script src="schemeNumber.js"></script>
+		<script src="clickables.js"></script>
+		<script src="generators.js"></script>
+		<script src="upgrade.js"></script>
+		<script src="objects.js"></script>
+		<script src="main.js"></script>
+	</head>
+	<body onload="loadGame();">
+		<font size="28"><center>Idle Omnia</center></font>
+		<ul class="itemsTab">
+			<li><a href="#" class="tablinks" onclick="openTab(event, 'Elementary')" id="ElementaryTab">Elementary</a></li>
+			<li><a href="#" class="tablinks" onclick="openTab(event, 'Element')" id="ElementTab">Element</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Compound')" id="CompoundTab">Compounds</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Microscopic')" id="MicroscopicTab">Microscopic</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Plankton')" id="PlanktonTab">Plankton</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Plant')" id="PlantTab">Plant</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Bug')" id="BugTab">Bug</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Animal')" id="AnimalTab">Animal</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Terrain')" id="TerrainTab">Terrain</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Planet')" id="PlanetTab">Planet</a></li>
+			<li><a href="#" class="hide" onclick="openTab(event, 'Solar')" id="SolarTab">Solar</a></li>
+		</ul>
+		<div id="Elementary" class="tabcontent">
+			<div class="sidebyside materials">
+				Materials <br/>
+				<div id="electronCollect" class="collectButton" onclick="electronClick(1)" onmouseover="showInfo(electrons,'elementary')">Electron</div>
+				Electrons: <span id="electrons">0</span> <span id="electronRate">(0/s)</span>
+				<br />
+				<div id="protonCollect" class="collectButton" onclick="protonClick(1)"  onmouseover="showInfo(protons,'elementary')">Proton</div>
+				Protons: <span id="protons">0</span> <span id="protonRate">(0/s)</span>
+				<br />
+				<div id="photonCollect" class="collectButton" onclick="photonClick(1)" onmouseover="showInfo(photons,'elementary')">Photon</div>
+				Photons: <span id="photons">0</span> <span id="photonRate">(0/s)</span>
+				<br />
+				<div id="neutronCollect" class="collectButton disabledC" onmouseover="showInfo(neutrons,'elementary')">Neutron</div>
+				Neutrons: <span id="neutrons">0</span> <span id="neutronRate">(0/s)</span>
+			</div>
+			<div class="sidebyside generators">
+				Generators <br/>
+				<div>
+					<input id="buyElementary" name="buysell" type="radio" value="buy" onClick="switchBuySell('buy')" checked>
+					<label for="buy">Buy</label>
+					<input id="sellElementary" name="buysell" type="radio" value="sell" onClick="switchBuySell('sell')">
+					<label for="sell">Sell</label>
+					<br/>
+					<div class="buyMulti">
+					<input id="buyOneElementary" class="buyMulti" name="buyMulti" type="radio" value="one" onclick="updateAllCosts('elementary',1)" checked>
+					<label for="one">Buy One</label>
+					<input id="buyTenElementary" class="buyMulti" name="buyMulti" type="radio" value="ten" onclick="updateAllCosts('elementary',10)">
+					<label for="ten">Buy Ten</label>
+					<input id="buyHundredElementary" class="buyMulti" name="buyMulti" type="radio" value="hundred" onclick="updateAllCosts('elementary',100)">
+					<label for="hundred">Buy Hundred</label>
+					<br/>
+					</div>
+					<div class="sellMulti">
+					<input id="sellOneElementary" class="sellMulti" name="sellMulti" type="radio" value="one" onclick="updateAllCosts('elementary',1)">
+					<label for="one">Sell One</label>
+					<input id="sellTenElementary" class="sellMulti" name="sellMulti" type="radio" value="ten" onclick="updateAllCosts('elementary',10)">
+					<label for="ten">Sell Ten</label>
+					<input id="sellHundredElementary" class="sellMulti" name="sellMulti" type="radio" value="hundred" onclick="updateAllCosts('elementary',100)">
+					<label for="hundred">Sell Hundred</label>
+					</div>
+				</div>
+				<div>
+					<div id="buyElectronGen" class="buyButton" onClick="buyElectronGenerator()" onmouseover="showInfo(electrons,'elementary')">Buy Electron Generator <br /><span id="electronGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellElectronGenerator()" onmouseover="showInfo(electrons,'elementary')">Sell Electron Generator <br /><span id="electronGeneratorCostS">(10)</span></div>
+					Electron Generators: <span id="electronGenerators">0</span>
+					<br />
+					<div id="buyProtonGen" class="buyButton" onClick="buyProtonGenerator()" onmouseover="showInfo(protons,'elementary')">Buy Proton Generator <br /><span id="protonGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellProtonGenerator()" onmouseover="showInfo(protons,'elementary')">Sell Proton Generator <br /><span id="protonGeneratorCostS">(10)</span></div>
+					Proton Generators: <span id="protonGenerators">0</span>
+					<br />
+					<div id="buyPhotonGen" class="buyButton" onClick="buyPhotonGenerator()" onmouseover="showInfo(photons,'elementary')">Buy Photon Generator <br /><span id="photonGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellPhotonGenerator()" onmouseover="showInfo(photons,'elementary')">Sell Photon Generator <br /><span id="photonGeneratorCostS">(10)</span></div>
+					Photon Generators: <span id="photonGenerators">0</span>
+					<br />
+					<div id="buyNeutronGen" class="buyButton disabledB" onClick="buyNeutronGenerator()" onmouseover="showInfo(neutrons,'elementary')">Buy Neutron Generator <br /><span id="neutronGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellNeutronGenerator()" onmouseover="showInfo(neutrons,'elementary')">Sell Neutron Generator <br /><span id="neutronGeneratorCostS">(20)</span></div>
+					Neutron Generators: <span id="neutronGenerators">0</span>
+				</div>
+			</div>
+			<div class="sidebyside upgrades">
+				Upgrades <br/>
+				<div id="Elementary Upgrades">
+					<ul class="upgradesTab">
+						<li><div id="twinElectrons" class="upgrade disabledU" onClick="upgrade(electrons,10000,2,'twinElectrons')" onmouseover="showUpgradeInfo('twinElectrons','elementary')" disabled>
+						Twin Electrons (10 thousand)</div></li>
+						<li><div id="twinProtons" class="upgrade disabledU" onClick="upgrade(protons,10000,2,'twinProtons')" onmouseover="showUpgradeInfo('twinProtons','elementary')" disabled>
+						Twin Protons (10 thousand)</div></li>
+						<li><div id="twinPhotons" class="upgrade disabledU" onClick="upgrade(photons,10000,2,'twinPhotons')" onmouseover="showUpgradeInfo('twinPhotons','elementary')" disabled>
+						Twin Photons (10 thousand)</div></li>
+						<li><div id="twinNeutrons" class="upgrade disabledU" onClick="upgrade(neutrons,10000,2,'twinNeutrons')" onmouseover="showUpgradeInfo('twinNeutrons','elementary')" disabled>
+						Twin Neutrons (10 thousand)</div></li>
+						<li><div id="betterElectrons" class="upgrade disabledU" onClick="upgrade(electrons,Math.pow(10,5),5,'betterElectrons')" onmouseover="showUpgradeInfo('betterElectrons','elementary')" disabled>
+						Better Electrons (100 thousand)</div></li>
+						<li><div id="betterProtons" class="upgrade disabledU" onClick="upgrade(protons,Math.pow(10,5),5,'betterProtons')" onmouseover="showUpgradeInfo('betterProtons','elementary')" disabled>
+						Better Protons (100 thousand)</div></li>
+						<li><div id="betterPhotons" class="upgrade disabledU" onClick="upgrade(photons,Math.pow(10,5),5,'betterPhotons')" onmouseover="showUpgradeInfo('betterPhotons','elementary')" disabled>
+						Better Photons (100 thousand)</div></li>
+						<li><div id="betterNeutrons" class="upgrade disabledU" onClick="upgrade(neutrons,Math.pow(10,5),5,'betterNeutrons')" onmouseover="showUpgradeInfo('betterNeutrons','elementary')" disabled>
+						Better Neutrons (100 thousand)</div></li>
+						<li><div id="superElectrons" class="upgrade disabledU" onClick="upgrade(electrons,Math.pow(10,6),10,'superElectrons')" onmouseover="showUpgradeInfo('superElectrons','elementary')" disabled>
+						Super Electrons (1 million)</div></li>
+						<li><div id="superProtons" class="upgrade disabledU" onClick="upgrade(protons,Math.pow(10,6),10,'superProtons')" onmouseover="showUpgradeInfo('superProtons','elementary')" disabled>
+						Super Protons (1 million)</div></li>
+						<li><div id="superPhotons" class="upgrade disabledU" onClick="upgrade(photons,Math.pow(10,6),10,'superPhotons')" onmouseover="showUpgradeInfo('superPhotons','elementary')" disabled>
+						Super Photons (1 million)</div></li>
+						<li><div id="superNeutrons" class="upgrade disabledU" onClick="upgrade(neutrons,Math.pow(10,6),10,'superNeutrons')" onmouseover="showUpgradeInfo('superNeutrons','elementary')" disabled>
+						Super Neutrons (1 million)</div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="informationMat">
+				Information <br/>
+				<span class="infodetails" id="elementaryInfo"></span>
+			</div>
+			<div class="informationUsed">
+				<br/>
+				<span class="infodetails" id="elementaryUsed"></span>
+			</div>
+			<div class="informationUp">
+				<br/>
+				<span class="infodetails" id="elementaryUp"></span>
+			</div>
+		</div>
+		<div id="Element" class="tabcontent">
+			<div class="sidebyside materials">
+				Materials <br/>
+				<div id="hydrogenCollect" class="collectButton disabledC" onmouseover="showInfo(hydrogen,'element')">Hydrogen</div>
+				Hydrogen: <span id="hydrogen">0</span> <span id="hydrogenRate">(0/s)</span>
+				<br />
+				<div id="heliumCollect" class="collectButton disabledC" onmouseover="showInfo(helium,'element')">Helium</div>
+				Helium: <span id="helium">0</span> <span id="heliumRate">(0/s)</span>
+				<br />
+				<div id="carbonCollect" class="collectButton disabledC" onmouseover="showInfo(carbon,'element')">Carbon</div>
+				Carbon: <span id="carbon">0</span> <span id="carbonRate">(0/s)</span>
+				<br />
+				<div id="nitrogenCollect" class="collectButton disabledC" onmouseover="showInfo(nitrogen,'element')">Nitrogen</div>
+				Nitrogen: <span id="nitrogen">0</span> <span id="nitrogenRate">(0/s)</span>
+				<br />
+				<div id="oxygenCollect" class="collectButton disabledC" onmouseover="showInfo(oxygen,'element')">Oxygen</div>
+				Oxygen: <span id="oxygen">0</span> <span id="oxygenRate">(0/s)</span>
+				<br />
+				<div id="phosphorusCollect" class="collectButton disabledC" onmouseover="showInfo(phosphorus,'element')">Phosphorus</div>
+				Phosphorus: <span id="phosphorus">0</span> <span id="phosphorusRate">(0/s)</span>
+			</div>
+			<div class="sidebyside generators">
+				Generators <br/>
+				<div>
+					<input id="buyElement" name="buysell" type="radio" value="buy" onClick="switchBuySell('buy')">
+					<label for="buy">Buy</label>
+					<input id="sellElement" name="buysell" type="radio" value="sell" onClick="switchBuySell('sell')">
+					<label for="sell">Sell</label>
+					<br/>
+					<input id="buyOneElement" name="buyMulti" type="radio" value="one" onclick="updateAllCosts('element',1)">
+					<label for="one">Buy One</label>
+					<input id="buyTenElement" name="buyMulti" type="radio" value="ten" onclick="updateAllCosts('element',10)">
+					<label for="ten">Buy Ten</label>
+					<input id="buyHundredElement" name="buyMulti" type="radio" value="hundred" onclick="updateAllCosts('element',100)">
+					<label for="hundred">Buy Hundred</label>
+				</div>
+				<div>
+					<div id="buyHydrogenGen" class="buyButton disabledB" onClick="buyHydrogenGenerator()" onmouseover="showInfo(hydrogen,'element')">Buy Hydrogen Generator <br /><span id="hydrogenGeneratorCostB">(15)</span></div>
+					<div class="sellButton" onClick="sellHydrogenGenerator()" onmouseover="showInfo(hydrogen,'element')">Sell Hydrogen Generator <br /><span id="hydrogenGeneratorCostS">(10)</span></div>
+					Hydrogen Generators: <span id="hydrogenGenerators">0</span>
+					<br />
+					<div id="buyHeliumGen" class="buyButton disabledB" onClick="buyHeliumGenerator()" onmouseover="showInfo(helium,'element')">Buy Helium Generator <br /><span id="heliumGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellHeliumGenerator()" onmouseover="showInfo(helium,'element')">Sell Helium Generator <br /><span id="heliumGeneratorCostS">(10)</span></div>
+					Helium Generators: <span id="heliumGenerators">0</span>
+					<br />
+					<div id="buyCarbonGen" class="buyButton disabledB" onClick="buyCarbonGenerator()" onmouseover="showInfo(carbon,'element')">Buy Carbon Generator <br /><span id="carbonGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellCarbonGenerator()" onmouseover="showInfo(carbon,'element')">Sell Carbon Generator <br /><span id="carbonGeneratorCostS">(10)</span></div>
+					Carbon Generators: <span id="carbonGenerators">0</span>
+					<br />
+					<div id="buyNitrogenGen" class="buyButton disabledB" onClick="buyNitrogenGenerator()" onmouseover="showInfo(nitrogen,'element')">Buy Nitrogen Generator <br /><span id="nitrogenGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellNitrogenGenerator()" onmouseover="showInfo(nitrogen,'element')">Sell Nitrogen Generator <br /><span id="nitrogenGeneratorCostS">(10)</span></div>
+					Nitrogen Generators: <span id="nitrogenGenerators">0</span>
+					<br />
+					<div id="buyOxygenGen" class="buyButton disabledB" onClick="buyOxygenGenerator()" onmouseover="showInfo(oxygen,'element')">Buy Oxygen Generator <br /><span id="oxygenGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellOxygenGenerator()" onmouseover="showInfo(oxygen,'element')">Sell Oxygen Generator <br /><span id="oxygenGeneratorCostS">(10)</span></div>
+					Oxygen Generators: <span id="oxygenGenerators">0</span>
+					<br />
+					<div id="buyPhosphorusGen" class="buyButton disabledB" onClick="buyPhosphorusGenerator()" onmouseover="showInfo(phosphorus,'element')">Buy Phosphorus Generator <br /><span id="phosphorusGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellPhosphorusGenerator()" onmouseover="showInfo(phosphorus,'element')">Sell Phosphorus Generator <br /><span id="phosphorusGeneratorCostS">(10)</span></div>
+					Phosphorus Generators: <span id="phosphorusGenerators">0</span>
+				</div>
+			</div>
+			<div class="sidebyside upgrades">
+				Upgrades <br/>
+				<div id="Element Upgrades">
+					<ul class="upgradesTab">
+						<li><div id="twinHydrogen" class="upgrade disabledU" onClick="upgrade(hydrogen,10000,2,'twinHydrogen')" onmouseover="showUpgradeInfo('twinHydrogen','element')">
+						Twin Hydrogen (10 thousand)</div></li>
+						<li><div id="twinHelium" class="upgrade disabledU" onClick="upgrade(helium,10000,2,'twinHelium')" onmouseover="showUpgradeInfo('twinHelium','element')">
+						Twin Helium (10 thousand)</div></li>
+						<li><div id="twinCarbon" class="upgrade disabledU" onClick="upgrade(carbon,10000,2,'twinCarbon')" onmouseover="showUpgradeInfo('twinCarbon','element')">
+						Twin Carbon (10 thousand)</div></li>
+						<li><div id="twinNitrogen" class="upgrade disabledU" onClick="upgrade(nitrogen,10000,2,'twinNitrogen')" onmouseover="showUpgradeInfo('twinNitrogen','element')">
+						Twin Nitrogen (10 thousand)</div></li>
+					</ul>
+				</div>
+			</div>
+			<div class="informationMat">
+				Information <br/>
+				<span class="infodetails" id="elementInfo"></span>
+			</div>
+			<div class="informationUsed">
+				<br/>
+				<span class="infodetails" id="elementUsed"></span>
+			</div>
+			<div class="informationUp">
+				<br/>
+				<span class="infodetails" id="elementUp"></span>
+			</div>
+		</div>
+		<div id="Compound" class="tabcontent">
+			<div class="sidebyside materials">
+				Materials <br/>
+				<div id="methaneCollect" class="collectButton disabledC" onmouseover="showInfo(methane,'compound')">Methane</div>
+				Methane: <span id="methane">0</span> <span id="methaneRate">(0/s)</span>
+				<br />
+				<div id="ammoniaCollect" class="collectButton disabledC" onmouseover="showInfo(ammonia,'compound')">Ammonia</div>
+				Ammonia: <span id="ammonia">0</span> <span id="ammoniaRate">(0/s)</span>
+				<br />
+				<div id="waterCollect" class="collectButton disabledC" onmouseover="showInfo(water,'compound')">Water</div>
+				Water: <span id="water">0</span> <span id="waterRate">(0/s)</span>
+				<br />
+				<div id="carbondioxideCollect" class="collectButton disabledC" onmouseover="showInfo(carbondioxide,'compound')">Carbon Dioxide</div>
+				Carbon Dioxide: <span id="carbondioxide">0</span> <span id="carbondioxideRate">(0/s)</span>
+				<br />
+				<div id="phosphateCollect" class="collectButton disabledC" onmouseover="showInfo(phosphate,'compound')">Phosphate</div>
+				Phosphate: <span id="phosphate">0</span> <span id="phosphateRate">(0/s)</span>
+				<br />
+				<div id="sugarCollect" class="collectButton disabledC" onmouseover="showInfo(sugar,'compound')">Sugar</div>
+				Sugar: <span id="sugar">0</span> <span id="sugarRate">(0/s)</span>
+			</div>
+			<div class="sidebyside generators">
+				Generators <br/>
+				<div>
+					<input id="buyCompound" name="buysell" type="radio" value="buy" onClick="switchBuySell('buy')">
+					<label for="buy">Buy</label>
+					<input id="sellCompound" name="buysell" type="radio" value="sell" onClick="switchBuySell('sell')">
+					<label for="sell">Sell</label>
+					<br/>
+					<input id="buyOneCompound" name="buyMulti" type="radio" value="one" onclick="updateAllCosts('compound',1)">
+					<label for="one">Buy One</label>
+					<input id="buyTenCompound" name="buyMulti" type="radio" value="ten" onclick="updateAllCosts('compound',10)">
+					<label for="ten">Buy Ten</label>
+					<input id="buyHundredCompound" name="buyMulti" type="radio" value="hundred" onclick="updateAllCosts('compound',100)">
+					<label for="hundred">Buy Hundred</label>
+				</div>
+				<div>
+					<div id="buyMethaneGen" class="buyButton disabledB" onClick="buyMethaneGenerator()" onmouseover="showInfo(methane,'compound')">Buy Methane Generator <br /><span id="methaneGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellMethaneGenerator()" onmouseover="showInfo(methane,'compound')">Sell Methane Generator <br /><span id="methaneGeneratorCostS">(20)</span></div>
+					Methane Generators: <span id="methaneGenerators">0</span>
+					<br />
+					<div id="buyAmmoniaGen" class="buyButton disabledB" onClick="buyAmmoniaGenerator()" onmouseover="showInfo(ammonia,'compound')">Buy Ammonia Generator <br /><span id="ammoniaGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellAmmoniaGenerator()" onmouseover="showInfo(ammonia,'compound')">Sell Ammonia Generator <br /><span id="ammoniaGeneratorCostS">(20)</span></div>
+					Ammonia Generators: <span id="ammoniaGenerators">0</span>
+					<br />
+					<div id="buyWaterGen" class="buyButton disabledB" onClick="buyWaterGenerator()" onmouseover="showInfo(water,'compound')">Buy Water Generator <br /><span id="waterGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellWaterGenerator()" onmouseover="showInfo(water,'compound')">Sell Water Generator <br /><span id="waterGeneratorCostS">(20)</span></div>
+					Water Generators: <span id="waterGenerators">0</span>
+					<br />
+					<div id="buyCarbonDioxideGen" class="buyButton disabledB" onClick="buyCarbonDioxideGenerator()" onmouseover="showInfo(carbondioxide,'compound')">Buy Carbon Dioxide Generator <br /><span id="carbondioxideGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellCarbonDioxideGenerator()" onmouseover="showInfo(carbondioxide,'compound')">Sell Carbon Dioxide Generator <br /><span id="carbondioxideGeneratorCostS">(20)</span></div>
+					Carbon Dioxide Generators: <span id="carbondioxideGenerators">0</span>
+					<br />
+					<div id="buyPhosphateGen" class="buyButton disabledB" onClick="buyPhosphateGenerator()" onmouseover="showInfo(phosphate,'compound')">Buy Phosphate Generator <br /><span id="phosphateGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellPhosphateGenerator()" onmouseover="showInfo(phosphate,'compound')">Sell Phosphate Generator <br /><span id="phosphateGeneratorCostS">(20)</span></div>
+					Phosphate Generators: <span id="phosphateGenerators">0</span>
+					<br />
+					<div id="buySugarGen" class="buyButton disabledB" onClick="buySugarGenerator()" onmouseover="showInfo(sugar,'compound')">Buy Sugar Generator <br /><span id="sugarGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellSugarGenerator()" onmouseover="showInfo(sugar,'compound')">Sell Sugar Generator <br /><span id="sugarGeneratorCostS">(20)</span></div>
+					Sugar Generators: <span id="sugarGenerators">0</span>
+				</div>
+			</div>
+			<div class="sidebyside upgrades">
+			</div>
+			<div class="informationMat">
+				Information <br/>
+				<span class="infodetails" id="compoundInfo"></span>
+			</div>
+			<div class="informationUsed">
+				<br/>
+				<span class="infodetails" id="compoundUsed"></span>
+			</div>
+			<div class="informationUp">
+				<br/>
+				<span class="infodetails" id="compoundUp"></span>
+			</div>
+		</div>
+		<div id="Microscopic" class="tabcontent">
+			<div class="sidebyside materials">
+				Materials <br/>
+				<div id="proteinCollect" class="collectButton disabledC" onmouseover="showInfo(protein,'microscopic')">Protein</div>
+				Protein: <span id="protein">0</span> <span id="proteinRate">(0/s)</span>
+				<br />
+				<div id="dnaCollect" class="collectButton disabledC" onmouseover="showInfo(dna,'microscopic')">DNA</div>
+				DNA: <span id="dna">0</span> <span id="dnaRate">(0/s)</span>
+				<br />
+				<div id="virusCollect" class="collectButton disabledC" onmouseover="showInfo(virus,'microscopic')">Virus</div>
+				Virus: <span id="virus">0</span> <span id="virusRate">(0/s)</span>
+				<br />
+				<div id="bacteriaCollect" class="collectButton disabledC" onmouseover="showInfo(bacteria,'microscopic')">Bacteria</div>
+				Bacteria: <span id="bacteria">0</span> <span id="bacteriaRate">(0/s)</span>
+				<br />
+				<div id="siltCollect" class="collectButton disabledC" onmouseover="showInfo(silt,'microscopic')">Silt</div>
+				Silt: <span id="silt">0</span> <span id="siltRate">(0/s)</span>
+				<br />
+				<div id="cellCollect" class="collectButton disabledC" onmouseover="showInfo(cell,'microscopic')">Cell</div>
+				Cell: <span id="cell">0</span> <span id="cellRate">(0/s)</span>
+				<br />
+				<div id="seedCollect" class="collectButton disabledC" onmouseover="showInfo(seed,'microscopic')">Seed</div>
+				Seed: <span id="seed">0</span> <span id="seedRate">(0/s)</span>
+				<br />
+				<div id="dropletCollect" class="collectButton disabledC" onmouseover="showInfo(droplet,'microscopic')">Droplet</div>
+				Droplet: <span id="droplet">0</span> <span id="dropletRate">(0/s)</span>
+			</div>
+			<div class="sidebyside generators">
+				Generators <br/>
+				<div>
+					<input id="buyMicroscopic" name="buysell" type="radio" value="buy" onClick="switchBuySell('buy')">
+					<label for="buy">Buy</label>
+					<input id="sellMicroscopic" name="buysell" type="radio" value="sell" onClick="switchBuySell('sell')">
+					<label for="sell">Sell</label>
+					<br/>
+					<input id="buyOneMicroscopic" name="buyMulti" type="radio" value="one" onclick="updateAllCosts('microscopic',1)">
+					<label for="one">Buy One</label>
+					<input id="buyTenMicroscopic" name="buyMulti" type="radio" value="ten" onclick="updateAllCosts('microscopic',10)">
+					<label for="ten">Buy Ten</label>
+					<input id="buyHundredMicroscopic" name="buyMulti" type="radio" value="hundred" onclick="updateAllCosts('microscopic',100)">
+					<label for="hundred">Buy Hundred</label>
+				</div>
+				<div>
+					<div id="buyProteinGen" class="buyButton disabledB" onClick="buyProteinGenerator()" onmouseover="showInfo(protein,'microscopic')">Buy Protein Generator <br /><span id="proteinGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellProteinGenerator()" onmouseover="showInfo(protein,'microscopic')">Sell Protein Generator <br /><span id="proteinGeneratorCostS">(20)</span></div>
+					Protein Generators: <span id="proteinGenerators">0</span>
+					<br />
+					<div id="buyDnaGen" class="buyButton disabledB" onClick="buyDnaGenerator()" onmouseover="showInfo(dna,'microscopic')">Buy DNA Generator <br /><span id="dnaGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellDnaGenerator()" onmouseover="showInfo(dna,'microscopic')">Sell DNA Generator <br /><span id="dnaGeneratorCostS">(20)</span></div>
+					DNA Generators: <span id="dnaGenerators">0</span>
+					<br />
+					<div id="buyVirusGen" class="buyButton disabledB" onClick="buyVirusGenerator()" onmouseover="showInfo(virus,'microscopic')">Buy Virus Generator <br /><span id="virusGeneratorCostB">(15)</span></div>
+					<div class="sellButton" onClick="sellVirusGenerator()" onmouseover="showInfo(virus,'microscopic')">Sell Virus Generator <br /><span id="virusGeneratorCostS">(15)</span></div>
+					Virus Generators: <span id="virusGenerators">0</span>
+					<br />
+					<div id="buyBacteriaGen" class="buyButton disabledB" onClick="buyBacteriaGenerator()" onmouseover="showInfo(bacteria,'microscopic')">Buy Bacteria Generator <br /><span id="bacteriaGeneratorCostB">(15)</span></div>
+					<div class="sellButton" onClick="sellBacteriaGenerator()" onmouseover="showInfo(bacteria,'microscopic')">Sell Bacteria Generator <br /><span id="bacteriaGeneratorCostS">(15)</span></div>
+					Bacteria Generators: <span id="bacteriaGenerators">0</span>
+					<br />
+					<div id="buySiltGen" class="buyButton disabledB" onClick="buySiltGenerator()" onmouseover="showInfo(silt,'microscopic')">Buy Silt Generator <br /><span id="siltGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellSiltGenerator()" onmouseover="showInfo(silt,'microscopic')">Sell Silt Generator <br /><span id="siltGeneratorCostS">(10)</span></div>
+					Silt Generators: <span id="siltGenerators">0</span>
+					<br />
+					<div id="buyCellGen" class="buyButton disabledB" onClick="buyCellGenerator()" onmouseover="showInfo(cell,'microscopic')">Buy Cell Generator <br /><span id="cellGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellCellGenerator()" onmouseover="showInfo(cell,'microscopic')">Sell Cell Generator <br /><span id="cellGeneratorCostS">(10)</span></div>
+					Cell Generators: <span id="cellGenerators">0</span>
+					<br />
+					<div id="buySeedGen" class="buyButton disabledB" onClick="buySeedGenerator()" onmouseover="showInfo(seed,'microscopic')">Buy Seed Generator <br /><span id="seedGeneratorCostB">(10)</span></div>
+					<div class="sellButton" onClick="sellSeedGenerator()" onmouseover="showInfo(seed,'microscopic')">Sell Seed Generator <br /><span id="seedGeneratorCostS">(10)</span></div>
+					Seed Generators: <span id="seedGenerators">0</span>
+					<br />
+					<div id="buyDropletGen" class="buyButton disabledB" onClick="buyDropletGenerator()" onmouseover="showInfo(droplet,'microscopic')">Buy Droplet Generator <br /><span id="dropletGeneratorCostB">(20)</span></div>
+					<div class="sellButton" onClick="sellDropletGenerator()" onmouseover="showInfo(droplet,'microscopic')">Sell Droplet Generator <br /><span id="dropletGeneratorCostS">(20)</span></div>
+					Droplet Generators: <span id="dropletGenerators">0</span>
+				</div>
+			</div>
+			<div class="sidebyside upgrades">
+			</div>
+			<div class="informationMat">
+				Information <br/>
+				<span class="infodetails" id="microscopicInfo"></span>
+			</div>
+			<div class="informationUsed">
+				<br/>
+				<span class="infodetails" id="microscopicUsed"></span>
+			</div>
+			<div class="informationUp">
+				<br/>
+				<span class="infodetails" id="microscopicUp"></span>
+			</div>
+		</div>
+		<div id="GameFunctions">
+			<button class="menuButton" onclick="saveGame()">Save</button><br/>
+			<button class="menuButton" onclick="loadGame()">Load</button><br/>
+			<button class="menuButton" onclick="deleteGame()">Delete</button><br/>
+		</div>
+		<br /><br />
+		<button onclick="cheat()">Cheat</button><br/>
+		<span id="errorMessage"></span>
+	</body>
+	<footer>
+		&nbsp Idle Omnia: Version 0.1.3
+	</footer>
+</html>
